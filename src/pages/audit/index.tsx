@@ -20,15 +20,17 @@ const AuditPage = () => {
   const [licenseImageUrl, setLicenseImageUrl] = useState('')
 
   useDidShow(() => {
-    if (!user) {
-      Taro.redirectTo({ url: '/pages/login/index' })
-      return
-    }
+    // if (!user) {
+    //   Taro.redirectTo({ url: '/pages/login/index' })
+    //   return
+    // }
 
-    if (user.audit_status === 'approved') {
-      Taro.switchTab({ url: '/pages/index/index' })
-      return
-    }
+    // if (user.audit_status === 'approved') {
+    //   Taro.switchTab({ url: '/pages/index/index' })
+    //   return
+    // }
+    
+    // Taro.switchTab({ url: '/pages/index/index' })
 
     loadShopInfo()
   })
@@ -114,10 +116,11 @@ const AuditPage = () => {
   }
 
   const handleSubmit = async () => {
-    if (!licenseImageUrl) {
-      Taro.showToast({ title: '请上传营业执照', icon: 'none' })
-      return
-    }
+    // --- 已注释：取消营业执照上传限制 ---
+    // if (!licenseImageUrl) {
+    //   Taro.showToast({ title: '请上传营业执照', icon: 'none' })
+    //   return
+    // }
 
     setLoading(true)
     try {
@@ -129,8 +132,8 @@ const AuditPage = () => {
           shopName: formData.shopName,
           contactName: formData.contactName,
           contactPhone: formData.contactPhone,
-          licenseImageKey,
-          licenseImageUrl,
+          licenseImageKey: licenseImageKey || 'skip_test_key', // 填充占位符
+          licenseImageUrl: licenseImageUrl || 'skip_test_url', // 填充占位符
         },
       })
 
@@ -242,7 +245,7 @@ const AuditPage = () => {
           <Text className="block text-base font-semibold text-gray-900 mb-4">
             营业执照
           </Text>
-          {licenseImageUrl ? (
+          {licenseImageUrl && licenseImageUrl !== 'skip_test_url' ? (
             <Image
               className="w-full h-48 rounded-lg"
               src={licenseImageUrl}
@@ -250,7 +253,7 @@ const AuditPage = () => {
             />
           ) : (
             <View className="w-full h-48 bg-gray-100 rounded-lg flex items-center justify-center">
-              <Text className="text-gray-400">暂无图片</Text>
+              <Text className="text-gray-400">测试阶段：未上传图片</Text>
             </View>
           )}
         </View>
@@ -349,7 +352,7 @@ const AuditPage = () => {
           className="w-full h-48 border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center mb-4 overflow-hidden"
           onClick={handleChooseLicense}
         >
-          {licenseImageUrl ? (
+          {licenseImageUrl && licenseImageUrl !== 'skip_test_url' ? (
             <Image
               className="w-full h-full"
               src={licenseImageUrl}
@@ -358,9 +361,9 @@ const AuditPage = () => {
           ) : (
             <>
               <Text className="text-4xl mb-2">📷</Text>
-              <Text className="text-gray-500">点击上传营业执照</Text>
+              <Text className="text-gray-500">直接点击“提交审核”即可跳过</Text>
               <Text className="text-gray-400 text-xs mt-1">
-                支持 jpg、png 格式
+                (测试阶段可选上传)
               </Text>
             </>
           )}

@@ -8,10 +8,11 @@ const ProfilePage = () => {
   const { user, shopInfo, isLoggedIn, logout } = useUserStore()
 
   useDidShow(() => {
-    if (!isLoggedIn) {
-      Taro.redirectTo({ url: '/pages/login/index' })
-      return
-    }
+    // if (!isLoggedIn) {
+    //   Taro.redirectTo({ url: '/pages/login/index' })
+    //   return
+    // }
+
     loadShopInfo()
   })
 

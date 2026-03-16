@@ -24,10 +24,10 @@ const AddressPage = () => {
   const [selectMode, setSelectMode] = useState(false)
 
   useDidShow(() => {
-    if (!isLoggedIn || !isApproved) {
-      Taro.redirectTo({ url: '/pages/login/index' })
-      return
-    }
+    // if (!isLoggedIn || !isApproved) {
+    //   Taro.redirectTo({ url: '/pages/login/index' })
+    //   return
+    // }
 
     // 检查是否是选择地址模式
     if (router.params.select === '1') {

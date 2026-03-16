@@ -60,13 +60,15 @@ const IndexPage = () => {
   })
 
   const checkLoginStatus = () => {
-    if (!isLoggedIn) {
-      Taro.redirectTo({ url: '/pages/login/index' })
-      return
-    }
-    if (!isApproved) {
-      Taro.redirectTo({ url: '/pages/audit/index' })
-    }
+    // if (!isLoggedIn) {
+    //   Taro.redirectTo({ url: '/pages/login/index' })
+    //   return
+    // }
+    // if (!isApproved) {
+    //   Taro.redirectTo({ url: '/pages/audit/index' })
+    // }
+    // Taro.switchTab({ url: '/pages/index/index' })
+
   }
 
   const loadCategories = async () => {

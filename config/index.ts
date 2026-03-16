@@ -173,7 +173,7 @@ export default defineConfig<'vite'>(async (merge, _env) => {
       publicPath: '/',
       staticDirectory: 'static',
       devServer: {
-        port: 5000,
+        port: 5002,
         host: '0.0.0.0',
         open: false,
         proxy: {

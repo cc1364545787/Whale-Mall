@@ -39,10 +39,10 @@ const OrdersPage = () => {
   ]
 
   useDidShow(() => {
-    if (!isLoggedIn || !isApproved) {
-      Taro.redirectTo({ url: '/pages/login/index' })
-      return
-    }
+    // if (!isLoggedIn || !isApproved) {
+    //   Taro.redirectTo({ url: '/pages/login/index' })
+    //   return
+    // }
     loadOrders()
   })
 

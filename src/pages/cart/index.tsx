@@ -27,10 +27,10 @@ const CartPage = () => {
   const [loading, setLoading] = useState(true)
 
   useDidShow(() => {
-    if (!isLoggedIn || !isApproved) {
-      Taro.redirectTo({ url: '/pages/login/index' })
-      return
-    }
+    // if (!isLoggedIn || !isApproved) {
+    //   Taro.redirectTo({ url: '/pages/login/index' })
+    //   return
+    // }
     loadCart()
   })
 

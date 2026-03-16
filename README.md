@@ -63,7 +63,7 @@ pnpm install
 pnpm dev
 ```
 
-- 前端地址：http://localhost:5000
+- 前端地址：http://localhost:5002
 - 后端地址：http://localhost:3000
 
 单独启动：

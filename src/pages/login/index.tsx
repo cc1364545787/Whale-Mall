@@ -11,11 +11,12 @@ const LoginPage = () => {
 
   useDidShow(() => {
     if (isLoggedIn) {
-      if (isApproved) {
+      // --- 修改：注释掉阻拦逻辑，强制跳转首页 ---
+      // if (isApproved) {
         Taro.switchTab({ url: '/pages/index/index' })
-      } else {
-        Taro.redirectTo({ url: '/pages/audit/index' })
-      }
+      // } else {
+      //   Taro.redirectTo({ url: '/pages/audit/index' })
+      // }
     }
   })
 
@@ -23,9 +24,7 @@ const LoginPage = () => {
     setLoading(true)
     try {
       // 模拟微信登录流程
-      // 实际生产环境需要调用 Taro.login 获取 code，然后后端换取 openid
       const mockOpenid = `openid_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`
-      
       const res = await Network.request({
         url: '/api/users/login',
         method: 'POST',
@@ -37,17 +36,17 @@ const LoginPage = () => {
       })
 
       console.log('[Login] response:', res.data)
-
       if (res.data?.code === 200 && res.data?.data) {
         const userData = res.data.data
         setUser(userData)
         Taro.setStorageSync('user', JSON.stringify(userData))
         
-        if (userData.audit_status === 'approved') {
+        // --- 修改：登录成功后不判断状态，直接进首页 ---
+        // if (userData.audit_status === 'approved') {
           Taro.switchTab({ url: '/pages/index/index' })
-        } else {
-          Taro.redirectTo({ url: '/pages/audit/index' })
-        }
+        // } else {
+        //   Taro.redirectTo({ url: '/pages/audit/index' })
+        // }
       } else {
         Taro.showToast({ title: '登录失败', icon: 'none' })
       }
