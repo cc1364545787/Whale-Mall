@@ -100,7 +100,10 @@ export default defineConfig<'vite'>(async (merge, _env) => {
                 : JSON.stringify('http://localhost:5002'),         // 本地开发地址
             },
     copy: {
-      patterns: [],
+      patterns: [
+        // 添加下面这一行，确保 src/public 下的文件被复制到打包后的根目录
+        { from: 'src/public', to: outputRoot }
+      ],
       options: {},
     },
     ...(process.env.TARO_ENV === 'tt' && {
