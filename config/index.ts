@@ -87,14 +87,18 @@ export default defineConfig<'vite'>(async (merge, _env) => {
     sourceRoot: 'src',
     outputRoot,
             plugins: ['@tarojs/plugin-generator', ...buildMiniCIPluginConfig()],
-    defineConstants: {
-      PROJECT_DOMAIN: JSON.stringify(
-        process.env.PROJECT_DOMAIN ||
-          process.env.COZE_PROJECT_DOMAIN_DEFAULT ||
-          '',
-      ),
-      TARO_ENV: JSON.stringify(process.env.TARO_ENV),
-    },
+            defineConstants: {
+              PROJECT_DOMAIN: JSON.stringify(
+                process.env.PROJECT_DOMAIN ||
+                  process.env.COZE_PROJECT_DOMAIN_DEFAULT ||
+                  '',
+              ),
+              TARO_ENV: JSON.stringify(process.env.TARO_ENV),
+              // --- 新增：根据环境自动切换 API 地址 ---
+              API_BASE_URL: process.env.NODE_ENV === 'production' 
+                ? JSON.stringify('https://whale-mall.onrender.com') // 你的 Render 地址
+                : JSON.stringify('http://localhost:5002'),         // 本地开发地址
+            },
     copy: {
       patterns: [],
       options: {},
@@ -178,7 +182,7 @@ export default defineConfig<'vite'>(async (merge, _env) => {
         open: false,
         proxy: {
           '/api': {
-            target: 'http://localhost:3000',
+            target: 'https://whale-mall.onrender.com',
             changeOrigin: true,
           },
         },
